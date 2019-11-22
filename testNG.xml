@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="testNG Suite">
+	<parameter name="userName" value="mana.santosh9991@gmail.com" />
+	<parameter name="password" value="Forgot@12345" />
+	<parameter name="newUser" value="punnamsatyasai1998@gmail.com" />
+	<test name="JiraAddUserTest">
+		<classes>
+			<class name="com.cobot.testcases.JiraAddUserTest" />
+		</classes>
+	</test>
+</suite>
