@@ -89,7 +89,7 @@ public class JiraAddUserTest {
             if (serverDown.isServerDown()) {
                 if (JiraAddUserTest.retryCount < 5) {
                     isServerDown = true;
-                    driver.close();
+                    driver.quit();
                     Thread.sleep(5000);
                     JiraAddUserTest.retryCount++;
                     JiraAddUserTest jiraTest = new JiraAddUserTest();
