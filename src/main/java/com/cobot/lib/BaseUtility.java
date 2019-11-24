@@ -42,6 +42,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.cobot.contants.Constants;
 import com.cobot.reports.Reports;
+import com.cobot.utils.AppData;
 
 /**
  * The Class BaseUtility.
@@ -50,6 +51,10 @@ public class BaseUtility {
 
     /** WebDriver */
     public static WebDriver driver;
+
+    public static int responseCode;
+
+    public static String jobId;
 
     /**
      * Launch the browser
@@ -684,5 +689,13 @@ public class BaseUtility {
             throw new Exception(e.getMessage());
         }
         return password;
+    }
+
+    public static String getOutPut(String jobId, String status, String reason) {
+        String outputJson = AppData.properties.getProperty("output_json");
+        outputJson = outputJson.replace("$jobId", jobId);
+        outputJson = outputJson.replace("$status", "Success");
+        outputJson = outputJson.replace("$reason", "");
+        return outputJson;
     }
 }

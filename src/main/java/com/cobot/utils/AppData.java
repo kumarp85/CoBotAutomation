@@ -1,7 +1,7 @@
 package com.cobot.utils;
 
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 /**
@@ -14,7 +14,9 @@ public class AppData {
 
     static {
         try {
-            properties.load(new FileReader(System.getProperty("user.dir") + "/Configuration/Config.properties"));
+            InputStream is = AppData.class.getClassLoader().getResourceAsStream("Config.properties");
+            properties.load(is);
+            is.close();
         } catch (IOException e) {
         }
     }
