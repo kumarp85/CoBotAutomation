@@ -7,7 +7,6 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 import com.cobot.utils.AppData;
 
-@SuppressWarnings("deprecation")
 public class APICalls {
     public static void Execute_postAPI(String postUrl, String inputJson) throws Exception {
         String[] headerNames = AppData.properties.getProperty("headerNames").split(";");
@@ -24,8 +23,6 @@ public class APICalls {
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
-        } finally {
-            httpClient.getConnectionManager().shutdown(); // Deprecated
         }
     }
 }

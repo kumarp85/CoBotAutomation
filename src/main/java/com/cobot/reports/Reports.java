@@ -65,7 +65,7 @@ public class Reports {
      * @throws Exception the exception
      */
     public static void createNewReport(String tcName) throws Exception {
-        String reportFolderName = System.getProperty("user.dir") + "/Report/report-" + BaseUtility.getDate();
+        String reportFolderName = "../Report/report-" + BaseUtility.getDate();
         screenShortFolder = reportFolderName;
         if (AppData.properties.getProperty("Suite_Execution") == null
                 || AppData.properties.getProperty("Suite_Execution").equals("NO")) {

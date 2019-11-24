@@ -65,8 +65,8 @@ public class ExcelReader {
         Reports.info("Running... getInputArray(String fileName, String sheetName, String TcName)");
         String[][] inputArray = null;
         try {
-            outputFileName = System.getProperty("user.dir") + "/Data/" + fileName;
-            FileInputStream ExcelFile = new FileInputStream(System.getProperty("user.dir") + "/Data/" + fileName);
+            outputFileName = "../Data/" + fileName;
+            FileInputStream ExcelFile = new FileInputStream("../Data/" + fileName);
 
             ExcelWBook = new XSSFWorkbook(ExcelFile);
             ExcelWSheet = ExcelWBook.getSheet(sheetName);
