@@ -65,12 +65,12 @@ public class Reports {
      * @throws Exception the exception
      */
     public static void createNewReport(String tcName) throws Exception {
-        config = BaseUtility.getConfigData();
         String reportFolderName = System.getProperty("user.dir") + "/Report/report-" + BaseUtility.getDate();
         screenShortFolder = reportFolderName;
-        if (config.get("Suite_Execution") == null || config.get("Suite_Execution").equals("NO")) {
+        if (AppData.properties.getProperty("Suite_Execution") == null
+                || AppData.properties.getProperty("Suite_Execution").equals("NO")) {
             BaseUtility.createFolderIfNotExist(reportFolderName);
-            reportFile = reportFolderName + "\\" + tcName + ".html";
+            reportFile = reportFolderName + "/" + tcName + ".html";
             extent = new ExtentReports(reportFile, true);
             testMap = new HashMap<String, String>();
         } else {

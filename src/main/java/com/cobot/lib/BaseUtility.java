@@ -23,7 +23,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 import java.util.Set;
@@ -32,9 +31,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -55,38 +51,6 @@ public class BaseUtility {
     public static int responseCode;
 
     public static String jobId;
-
-    /**
-     * Launch the browser
-     * @return driver object
-     * @throws Exception to calling place
-     */
-    public static WebDriver browserLaunch() throws Exception {
-        Reports.info("Running... browserLaunch()");
-        Map<String, String> config = getConfigData();
-        try {
-            quitAlldrivers();
-            if (config.get("browser").equalsIgnoreCase("CHROME")) {
-                System.setProperty("webdriver.chrome.driver",
-                        System.getProperty("user.dir") + "/Drivers/" + "chromedriver.exe");
-                driver = new ChromeDriver();
-            } else if (config.get("browser").equalsIgnoreCase("IE")) {
-                System.setProperty("webdriver.ie.driver",
-                        System.getProperty("user.dir") + "/Drivers/" + "IEDriverServer.exe");
-                driver = new InternetExplorerDriver();
-            } else if (config.get("browser").equalsIgnoreCase("FF")) {
-                System.setProperty("webdriver.gecko.driver",
-                        System.getProperty("user.dir") + "/Drivers/" + "geckodriver.exe");
-                driver = new FirefoxDriver();
-            }
-        } catch (Exception e) {
-            Reports.fail("Unable to launch the browser: " + e.getMessage());
-            throw e;
-        }
-        driver.get(config.get("url"));
-        driver.manage().window().maximize();
-        return driver;
-    }
 
     /**
      * Returns the text value of an Object
@@ -380,26 +344,6 @@ public class BaseUtility {
     }
 
     /**
-     * Gets the config data.
-     * @return the config data
-     * @throws Exception to the calling place
-     */
-    public static Map<String, String> getConfigData() throws Exception {
-        Reports.info("Running... getConfigData()");
-        String configFile = "Configuration\\Config.properties";
-
-        HashMap<String, String> configData = new HashMap<String, String>();
-        Properties prop = new Properties();
-        FileInputStream fis = new FileInputStream(configFile);
-        prop.load(fis);
-        Set<Object> keys = prop.keySet();
-        for (Object k : keys) {
-            configData.put((String) k, prop.getProperty((String) k));
-        }
-        return configData;
-    }
-
-    /**
      * Sets the config data.
      * @param keyName is the key name
      * @param keyValue is the key value
@@ -643,29 +587,6 @@ public class BaseUtility {
         } catch (Exception e) {
             Reports.fail("Exception in createFolderIfNotExist(String directory) Method: " + e.getMessage());
             throw e;
-        }
-    }
-
-    /**
-     * Quit all open drivers.
-     * @throws Exception
-     */
-    public static void quitAlldrivers() throws Exception {
-        Map<String, String> config = getConfigData();
-        String browser = config.get("browserToOpenReport").toUpperCase();
-
-        if (!browser.contains("CHROMEDRIVER.EXE") && !browser.contains("CHROME.EXE")) {
-            Runtime.getRuntime().exec("taskkill /F /IM chromedriver.exe");
-            Runtime.getRuntime().exec("taskkill /F /IM Chrome.exe");
-        }
-
-        if (!browser.contains("IEDRIVERSERVER.EXE") && !browser.contains("IEXPLORE.EXE")) {
-            Runtime.getRuntime().exec("taskkill /F /IM IEDriverServer.exe");
-            Runtime.getRuntime().exec("taskkill /F /IM iexplore.exe");
-        }
-
-        if (!browser.contains("FIREFOX.EXE")) {
-            Runtime.getRuntime().exec("taskkill /F /IM firefox.exe");
         }
     }
 
